@@ -3,7 +3,14 @@ hosts: all
 become: yes
 tasks:
   - name: install apache2
-    apt:
+    ansible.builtin.apt:
       name: apache2
       update_cache: yes
-      state: latest
+      state: present
+  - name: copy file with owner and permissions
+    ansible.builtin.copy:
+      src: index.html
+      dest: /var/www/html
+      owner: root
+      group: root
+      mode: '0664'
